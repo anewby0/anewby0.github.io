@@ -1,0 +1,68 @@
+:root {
+  --nav-highlight-color: aquamarine;
+}
+
+body {
+  background-color: #203030;
+  margin: 0;
+  padding: 0 ;
+}
+
+.content {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 0 24px;
+  background-color: tomato;
+}
+
+
+
+/*==========================
+        NAV BAR STUFF
+==========================*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: darkslategray;
+  position: sticky;
+  width: 100%;
+  top: 0;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 60%;
+  padding: 18px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  font-size: xx-large;
+  font-family: "Iosevka Charon Mono", serif;
+  text-decoration: none;
+  color: azure;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 64px;
+  margin: 0;
+  padding: 0;
+}
+
+/* This targets each 'a' contained in .nav-links */
+.nav-links a {
+  font-size: large;
+  font-family: "Iosevka Charon Mono", serif;
+  text-decoration: none;
+  color: azure;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--nav-highlight-color);
+}
