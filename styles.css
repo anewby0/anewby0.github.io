@@ -35,6 +35,7 @@ body {
   width: 100%;
   top: 0;
   z-index: 100;
+  transition: transform 0.3s ease;
 }
 
 .navbar-content {
@@ -69,6 +70,11 @@ body {
   text-decoration: none;
   color: azure;
   transition: color 0.3s ease;
+}
+
+
+.navbar:hover {
+  transform: scale(1.005);
 }
 
 .nav-links a:hover {
@@ -117,6 +123,17 @@ body {
 
 .intro-image img {
   width: 100%;
+}
+
+.section1 {
+  opacity: 0;
+  background-color: var(--main-content-bg-color);
+  margin: 0 auto;
+  padding: 0px 24px 20px 24px;
+  font-size: large;
+  max-width: 900px;
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.4s;
 }
 
 /*==========================
