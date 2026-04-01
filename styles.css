@@ -3,6 +3,7 @@
   --main-content-bg-color: #7d9390;
   --main-body-bg-color: #203030;
   --main-highlight-color: #F1C65D;
+  --color-secondary: darkslategray;
 }
 
 body {
@@ -147,6 +148,10 @@ body {
 
 .intro-image img {
   width: 100%;
+  border-radius: 2%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: var(--main-highlight-color);
 }
 
 .section1 {
@@ -186,6 +191,31 @@ body {
   width: 70%;
 }
 
+.section1 img:hover {
+  filter: brightness(1.10);
+}
+
+.section1 a {
+  display: block;
+  text-align: center;
+  color: azure;
+  text-decoration: none;
+  margin: 0 auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background-color: #8cb7af;
+  width: 20%;
+  border: solid;
+  border-radius: 10%;
+  border-color: darkslategray;
+  border-width: 4px;
+}
+
+.section1 a:hover {
+  filter: brightness(1.10);
+  color: aquamarine;
+}
+
 .about-bg-section {
   background-color: var(--main-content-bg-color);
   margin: 0 auto;
@@ -198,6 +228,15 @@ body {
   max-width: 900px;
   padding: 80px 24px;
   font-size: large;
+}
+
+.about-bg-tnr-content {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 80px 24px;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  font-family:'Times New Roman', Times, serif;
 }
 
 .about-bg-goals {
@@ -221,6 +260,11 @@ body {
   opacity: 0;
   animation: fadeSlideUp 0.6s ease forwards;
   place-items: center;
+}
+
+.projects-content {
+  margin: 0 auto;
+  padding: 48px 24px;
 }
 
 .projects-grid {
@@ -303,7 +347,7 @@ body {
 }
 
 .footer-links a {
-  color: white;
+  color: azure;
   font-size: 2rem;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -401,3 +445,22 @@ body {
 /*==========================
         MISC STUFF
 ==========================*/
+.quote {
+  margin: 0;
+  margin-right: 30%;
+  padding: 24px 32px;
+  border-left: 4px solid var(--main-body-bg-color);
+}
+
+.quote p {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  font-style: italic;
+  margin: 0 0 12px 0;
+}
+
+.contacts-section {
+  margin: 0 auto;
+  width: 100%;
+  color: azure;
+}
