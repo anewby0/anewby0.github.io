@@ -217,9 +217,8 @@ body {
 }
 
 .about-bg-section {
-  background-color: var(--main-content-bg-color);
+  background-color: rgba(32, 48, 48, 0.7);
   margin: 0 auto;
-  opacity: 95%;
   width: 100%;
 }
 
@@ -420,9 +419,18 @@ body {
   max-width: 900px;
   margin: 0 auto;
   margin-top: 12px;
-  padding: 8px 24px;
 }
 
+.skill-card {
+  background-color: #8cb7af;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.skill-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
 .skill-card:hover {
   filter: brightness(1.10);
 }
@@ -430,13 +438,9 @@ body {
 .skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 48px 32px;
+  gap: 0;
 }
 
-.skill-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-}
 
 .skill-card p {
   line-height: 1.7;
