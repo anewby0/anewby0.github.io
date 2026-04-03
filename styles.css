@@ -4,6 +4,7 @@
   --main-body-bg-color: #203030;
   --main-highlight-color: #F1C65D;
   --color-secondary: darkslategray;
+  --color-navbar: #1a1a1a;
 }
 
 body {
@@ -50,7 +51,7 @@ body {
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: darkslategray;
+  background-color: var(--color-navbar);
   position: sticky;
   width: 100%;
   top: 0;
