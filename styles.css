@@ -39,8 +39,9 @@ body {
   background-color: darkslategray;
   margin: 0 auto;
   padding: 0px 24px 5px 24px;
+  width: fit-content;
   
-  border-radius: 2%;
+  border-radius: 2px;
   border-style: solid;
   border-width: 4px;
   border-color: var(--main-body-bg-color);
@@ -177,6 +178,10 @@ body {
   font-size: xx-large;
   text-align: center;
 }
+.section1 h2 {
+  font-size: x-large;
+  text-align: center;
+}
 .section1 p {
   text-align: center;
   font-size: large;
@@ -194,7 +199,8 @@ body {
 }
 
 .section1 img:hover {
-  filter: brightness(1.10);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .section1 a {
@@ -277,6 +283,36 @@ body {
   padding: 48px 24px;
 }
 
+.ring-analysis {
+  margin: 0 auto;
+  
+  background-color: rgba(32, 48, 48, 0.7);
+  margin: 0 auto;
+  width: 100%;
+}
+.ring-container {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 32px;
+  padding: 48px 24px;
+}
+.ring img{
+  width: 100%;
+  filter: grayscale(100%) brightness(0.4);
+  cursor: pointer;
+  transition: filter 0.6s ease;
+  margin: 0 auto;
+}
+.ring.revealed img {
+  filter: brightness(1.10);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+.ring p {
+  text-align: center;
+  font-size: large;
+  color: azure;
+}
 .project-card {
   display: block;
   text-decoration: none;
@@ -469,4 +505,28 @@ body {
   margin: 0 auto;
   width: 100%;
   color: azure;
+}
+
+
+/*==========================
+        MISC STUFF
+==========================*/
+.project-intro img {
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 2%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: darkslategray;
+}
+
+.code-summary {
+  cursor: pointer
+}
+
+.code-details {
+  background-color: #1a1a1a;
+  color: azure;
+  width: fit-content;
+  padding: 6px;
 }

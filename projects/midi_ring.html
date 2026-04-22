@@ -1,0 +1,339 @@
+<head>
+  <link rel="stylesheet" href="../styles.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script src="script.js"></script>
+</head>
+<body style="background-image: url('../img/project1_background.png');">
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="nav-brand">Austin Newby</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../resume.html">Resume</a></li>
+        <li><a href="../projects.html" style="color: var(--nav-highlight-color);">Projects</a></li>
+        <li><a href="../contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main class="content">
+    <section class="about-bg-section">
+      <div class="about-bg-content">
+        <div class="project-intro">
+          <h1 class="text-fade" style="color: azure;">RGB Midi-Ring<hr></h1>
+          <div class="intro">
+            <div class="intro-image">
+              <img src="../img/project1_main.png" alt="MIDI Ring">
+            </div>
+            <div class="intro-image">
+              <img src="../img/project1_2.png" alt="MIDI Ring">
+            </div>
+          </div>
+          <div class="section1">
+            <h1>Live Neopixel Control via C++ Midi Interpreter</h1>
+            <p>Ever wondered what it would look like if your piano playing could be visuallized on a 12-LED NeoPixel ring? Well wonder no longer! This project uses an arduino, a laptop, a keyboard, and a neopixel ring to create a vibrant light show while you play. The lights change color depending on the octave and each of the 12 notes represents 1 led.</p>
+          </div>
+          <img src="../img/project1_3.png" style="width:60%; display: block; margin: auto" alt="MIDI Ring">
+          <div class="section1">
+            <h1>Process</h1>
+            <p>
+              Here are my original designs for the project aswell as a potential timeline.<br><br>
+             "I want to use an arduino to take midi inputs and convert it into commands for a neopixel led light system. This should be able to work with midi input from a midi-keyboard and midi-output from a program on my laptop." 
+            </p>
+            <li>Checkout Arduino, board, etc., experiment w/ blink led, (2/17-2/24)</li>
+            <li>Investigate connecting midi to arduino to light led, (2/24-3/3)</li>
+            <li>Order and use neopixels, connect midi w/ arduino to that, (3/3-3/10)</li>
+            <li>Attempt more advanced animations on neopixels, attach to board, (3/10-3/17)</li>
+            <li>Color shift w/ mod wheel, (3/17-3/24)</li><br> 
+          </div>
+          <div class="section1">
+            <h2>BASIC LAYOUT</h2>
+            <img src="../img/midi_system_basic.png" style="width:60%;"alt="basic system">
+            <p>The above chart shows how a very basic system would be set up. The keyboard would plug directly into an independently powered arduino running a midi interpreter, all to control the neopixel light. This would work, but since the keyboard is strictly MIDI, there would be no sound, and this doesn't account for the keyboard requiring power as well (which I don't have the cable to do independently). Below is a more complicated but more versatile system.</p>
+          </div>
+          <div class="section1">
+            <h2>VERSATILE LAYOUT</h2>
+            <img src="../img/midi_system_audio.PNG"  style="width:60%;"alt="audio system">
+            <p>Now the laptop serves as an intermediary between the keyboard and the arduino, providing audio through a DAW program as well as power to all components. However, there is an unresolved bridge between the laptop and the arduino, particularly for the MIDI data. How am I supposed to route the midi through both FL Studio (my DAW of choice) and into the arduino?</p>
+          </div>
+          <div class="section1">  
+            <h2>DATA LOGISTICS</h2>
+            <img src="../img/midi_flowchart.png"  style="width:60%;"alt="flowchart">
+            <p>Using two third-party programs, LoopMidi + HairlessMidi, I am able to route all the necessary data where it needs to go. LoopMidi handles creating virtual input/outputs that can be detected by other programs like FL Studio, while HairlessMidi provides the direct bridge to the Arduino.</p>
+          </div> 
+          <div class="section1">  
+            <h2>C++ MIDI INTERPRETER</h2>
+            
+          <details class="code-details"><summary class="code-summary">View Midi Interpreter Code</summary>
+          <pre><code class="language-c++">
+#include &lt;Adafruit_NeoPixel.h&gt;
+
+#define LED_PIN    6
+#define LED_COUNT 12
+
+Adafruit_NeoPixel ring(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+static long color0 = ring.Color(50, 0, 0);
+static long color1 = ring.Color(255, 0, 0);
+static long color2 = ring.Color(200, 100, 0);
+static long color3 = ring.Color(0, 255, 0);
+static long color4 = ring.Color(0, 255, 255);
+static long color5 = ring.Color(0, 0, 255);
+static long color6 = ring.Color(255, 0, 255);
+static long color7 = ring.Color(60, 0, 255);
+static long color8 = ring.Color(50, 50, 50);
+
+void setup() {
+  Serial.begin(9600);
+  ring.begin();       
+  ring.show();            
+  ring.setBrightness(15);
+  ring.setPixelColor(3, color7); //initializes a pixel for testing purposes
+  ring.show();            
+}
+
+void loop() {
+  static int midiBytes [3] = {0x00, 0x00, 0x00};
+  static int midicount = 0;
+
+  while (Serial.available() > 0) {
+    midiBytes[midicount] = Serial.read();
+    midicount++;
+    if (midicount == 3) {
+      if (midiBytes[0] == 0x90) //NOTE ON, CHANNEL 1
+      {
+        int note = midiBytes[1];
+        long new_color = color0;
+        if (note < 12) new_color = color0;
+        else if (note < 24) new_color = color0;
+        else if (note < 36) new_color = color1;
+        else if (note < 48) new_color = color2;
+        else if (note < 60) new_color = color3;
+        else if (note < 72) new_color = color4;
+        else if (note < 84) new_color = color5;
+        else if (note < 96) new_color = color6;
+        else if (note < 108) new_color = color7;
+        else if (note < 127) new_color = color8;
+        note = note % 12;
+        switch(note) {
+          case 0x00:
+            ring.setPixelColor(0, new_color);
+            break;
+          case 0x01:
+            ring.setPixelColor(1, new_color);
+            break;
+          case 0x02:
+            ring.setPixelColor(2, new_color);
+            break;
+          case 0x03:
+            ring.setPixelColor(3, new_color);
+            break;
+          case 0x04:
+            ring.setPixelColor(4, new_color);
+            break;
+          case 0x05:
+            ring.setPixelColor(5, new_color);
+            break;
+          case 0x06:
+            ring.setPixelColor(6, new_color);
+            break;
+          case 0x07:
+            ring.setPixelColor(7, new_color);
+            break;
+          case 0x08:
+            ring.setPixelColor(8, new_color);
+            break;
+          case 0x09:
+            ring.setPixelColor(9, new_color);
+            break;
+          case 0x0A:
+            ring.setPixelColor(10, new_color);
+            break;
+          case 0x0B:
+            ring.setPixelColor(11, new_color);
+            break;
+        }
+        ring.show();
+      }
+      else if (midiBytes[0] == 0x80) //NOTE OFF, CHANNEL 1
+      {
+        int note = midiBytes[1];
+        long new_color = ring.Color(0,0,0);
+        note = note % 12;
+        switch(note) {
+          case 0x00:
+            ring.setPixelColor(0, new_color);
+            break;
+          case 0x01:
+            ring.setPixelColor(1, new_color);
+            break;
+          case 0x02:
+            ring.setPixelColor(2, new_color);
+            break;
+          case 0x03:
+            ring.setPixelColor(3, new_color);
+            break;
+          case 0x04:
+            ring.setPixelColor(4, new_color);
+            break;
+          case 0x05:
+            ring.setPixelColor(5, new_color);
+            break;
+          case 0x06:
+            ring.setPixelColor(6, new_color);
+            break;
+          case 0x07:
+            ring.setPixelColor(7, new_color);
+            break;
+          case 0x08:
+            ring.setPixelColor(8, new_color);
+            break;
+          case 0x09:
+            ring.setPixelColor(9, new_color);
+            break;
+          case 0x0A:
+            ring.setPixelColor(10, new_color);
+            break;
+          case 0x0B:
+            ring.setPixelColor(11, new_color);
+            break;
+        }
+        ring.show();
+      }  
+      midicount = 0;
+    }
+  }
+}
+          </code></pre></details>
+            <p>This was the really fun part of the project where I had to figure out how MIDI actually communicates data. This interpreter detects NOTE-ON and NOTE-OFF signals and colors the desired lights a color depending on the octave.</p>
+          </div> 
+        <section class="ring-analysis">
+          
+            <audio id="5" src="../audio/5.mp3"></audio>
+            <audio id="aug" src="../audio/aug.mp3"></audio>
+            <audio id="dim7" src="../audio/dim7.mp3"></audio>
+            <audio id="dom7" src="../audio/dom7.mp3"></audio>
+            <audio id="mag3" src="../audio/mag3.mp3"></audio>
+            <audio id="maj7" src="../audio/maj7.mp3"></audio>
+            <audio id="min3" src="../audio/min3.mp3"></audio>
+            <audio id="min7" src="../audio/min7.mp3"></audio>
+            <audio id="minmaj7" src="../audio/minmaj7.mp3"></audio>
+            <audio id="tritone" src="../audio/tritone.mp3"></audio>
+              
+            <div class="section1">
+              <h1>Musical Observations</h1>
+              <p>While messing around on the keyboard, I discovered interesting patterns that mapped chords directly to shapes on the neopixel ring. It was very interesting to me how</p>
+            </div>
+            <div class="ring-container">
+              <div class="ring">
+                <img src="../gif/midi_ring/5.gif" alt="MIDI Ring" onclick="document.getElementById('5').play()" style="cursor:pointer;">
+                <p>5th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/maj3.gif" alt="MIDI Ring" onclick="document.getElementById('mag3').play()" style="cursor:pointer;">
+                <p>Major 3rd</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/min3.gif" alt="MIDI Ring" onclick="document.getElementById('min3').play()" style="cursor:pointer;">
+                <p>Minor 3rd</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/tri.gif" alt="MIDI Ring" onclick="document.getElementById('tritone').play()" style="cursor:pointer;">
+                <p>Tritone</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/dom7.gif" alt="MIDI Ring" onclick="document.getElementById('dom7').play()" style="cursor:pointer;">
+                <p>Dominant 7th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/maj7.gif" alt="MIDI Ring" onclick="document.getElementById('maj7').play()" style="cursor:pointer;">
+                <p>Major 7th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/min7.gif" alt="MIDI Ring" onclick="document.getElementById('min7').play()" style="cursor:pointer;">
+                <p>Minor 7th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/minmaj7.gif" alt="MIDI Ring" onclick="document.getElementById('minmaj7').play()" style="cursor:pointer;">
+                <p>Minor/Major 7th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/dim7.gif" alt="MIDI Ring" onclick="document.getElementById('dim7').play()" style="cursor:pointer;">
+                <p>Diminished 7th</p>
+              </div>
+              <div class="ring">
+                <img src="../gif/midi_ring/aug.gif" alt="MIDI Ring" onclick="document.getElementById('aug').play()" style="cursor:pointer;">
+                <p>Augmented 7th</p>
+              </div>
+            </div>
+
+        <iframe width="100%" height="500" src="https://www.youtube.com/embed/V7WkZybQLqg?si=NsYkPTVoCjZ-MSna?modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        
+          <details class="code-details"><summary class="code-summary">View Visual Generation Code</summary>
+          <pre><code class="language-python">
+import matplotlib.pyplot as plt
+import math
+
+
+def light_ring(offset,*pos):
+    # creates circles at any number of positions or 'halfsteps'
+    # starts rightmost (0), increments counter-clockwise
+    # offset increments that starting position counter-clockwise
+    n=0
+    for x in range(len(pos)):
+        angle = (pos[n] + offset) * 30 # 360/12
+        x_pos = 0.5 + 0.3 * math.cos(math.radians(angle))
+        y_pos = 0.5 + 0.3 * math.sin(math.radians(angle))
+        circle = plt.Circle((x_pos, y_pos), inner_led_radius, color='blue', fill=True, linewidth=2)
+        ax.add_patch(circle)
+        n = n+1
+
+for num in range(12):
+    # saves 12 files, each an offset iteration of the specified 'chord'/positions
+
+    fig, ax = plt.subplots()
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    circ_outer_radius = 0.4
+    circ_inner_radius = 0.2
+    inner_led_radius = 0.065
+
+    circle_outer = plt.Circle((0.5, 0.5), circ_outer_radius, color='black', fill=False, linewidth=2)
+    circle_inner = plt.Circle((0.5, 0.5), circ_inner_radius, color='black', fill=False, linewidth=2)
+    ax.add_patch(circle_outer)
+    ax.add_patch(circle_inner)
+
+
+    for x in range(12):
+        # generates the empty encircled circles
+        angle = x * 30  # 360/12
+        x_pos = 0.5 + 0.3 * math.cos(math.radians(angle))
+        y_pos = 0.5 + 0.3 * math.sin(math.radians(angle))
+        circle = plt.Circle((x_pos, y_pos), inner_led_radius, color='black', fill=False, linewidth=2)
+        ax.add_patch(circle)
+
+    # num is the offset -> part of for loop
+    # this creates a major third
+    light_ring(num,0,4,7)
+    plt.savefig(f"NAME_{num}.png")
+
+          </code></pre></details>
+        </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/austin-newby-7a12b2383/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/anewby0" target="_blank"><i class="fa-brands fa-github"></i></a>
+      </div>
+      <p class="footer-copy">© 2026 Austin Newby. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
