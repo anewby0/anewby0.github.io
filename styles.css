@@ -1,10 +1,11 @@
 :root {
   --nav-highlight-color: aquamarine;
-  --main-content-bg-color: #7d9390;
+  --main-true-bg-color: #0B0D0D;
+  --main-content-bg-color: #0B0D0D;
   --main-body-bg-color: #203030;
   --main-highlight-color: #F1C65D;
   --color-secondary: darkslategray;
-  --color-navbar: #1a1a1a;
+  --color-navbar: #262626;
 }
 
 body {
@@ -23,7 +24,7 @@ body {
   max-width: 100%;
   margin: 0 auto;
   padding: 0px;
-  font-family: "Iosevka Charon Mono", serif;
+  font-family: "Inter", serif;
 }
 .content h1 {
   font-size: xx-large;
@@ -51,6 +52,7 @@ body {
         NAV BAR STUFF
 ==========================*/
 .navbar {
+  font-family: "Inter", serif;
   display: flex;
   justify-content: space-between;
   background-color: var(--color-navbar);
@@ -64,24 +66,32 @@ body {
 .navbar-content {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  max-width: 60%;
-  padding: 22px;
+  align-items: center;
+  max-width: 97%;
+  padding: 10px;
   width: 100%;
   margin: 0 auto;
 }
+.navbar-content img {
+  align-items: center;
+  clip-path: circle(50%);
+  max-width: 3rem;
+  height: auto;
+}
 
 .nav-brand {
-  font-size: xx-large;
-  font-family: "Iosevka Charon Mono", serif;
+  display: inline-flex;
+  align-items: center;
+  font-size: x-large;
   text-decoration: none;
   color: #f0ffff;
+  gap: 24px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 64px;
+  gap: 32px;
   margin: 0;
   padding: 0;
 }
@@ -89,7 +99,6 @@ body {
 /* This targets each 'a' contained in .nav-links */
 .nav-links a {
   font-size: large;
-  font-family: "Iosevka Charon Mono", serif;
   text-decoration: none;
   color: azure;
   transition: color 0.3s ease;
@@ -123,7 +132,7 @@ body {
   align-items: center;
   gap: 48px;
   padding: 80px 24px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -174,18 +183,36 @@ body {
   border-color: darkslategray;
 
 }
+p {
+  color: white;
+}
+h1 {
+  color: white;
+}
+h2 {
+  color: white;
+}
+h3 {
+  color: white;
+}
+li {
+  color: white;
+}
 .section1 h1 {
   font-size: xx-large;
   text-align: center;
+  color: white;
 }
 .section1 h2 {
   font-size: x-large;
   text-align: center;
+  color: white;
 }
 .section1 p {
   text-align: center;
   font-size: large;
   font-weight: normal;
+  color: white;
 }
 
 .section1 img {
@@ -225,15 +252,15 @@ body {
 }
 
 .about-bg-section {
-  background-color: rgba(32, 48, 48, 0.7);
+  background-color: rgba(6, 12, 12, 0.85);
   margin: 0 auto;
   width: 100%;
 }
 
 .about-bg-content {
   margin: 0 auto;
-  max-width: 900px;
-  padding: 80px 24px;
+  max-width: 1400px;
+  padding: 80px;
   font-size: large;
 }
 
@@ -248,8 +275,8 @@ body {
 
 .about-bg-goals {
   margin: 0 auto;
-  max-width: 900px;
-  padding: 80px 24px;
+  max-width: 60%;
+  padding: 20px 24px;
   font-size: large;
 }
 
@@ -449,7 +476,6 @@ body {
   opacity: 0;
   animation: fadeSlideUp 0.6s ease forwards;
   animation-delay: 0.2s;
-  background-color: var(--main-content-bg-color);
   width: 100%;
 }
 
@@ -460,7 +486,7 @@ body {
 }
 
 .skill-card {
-  background-color: #8cb7af;
+  background-color: #59605f;
   padding-left: 15px;
   padding-right: 15px;
 }

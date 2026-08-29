@@ -8,14 +8,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    @keyframes glow {
+      0% { text-shadow: 0 0 15px aqua; }
+      50% { text-shadow: none; }
+      100% { text-shadow: 0 0 15px aqua; }
+    }
+
+    #glow {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #ffffff;
+      animation: glow 2.0s linear infinite;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="navbar-content">
-      <a href="index.html" class="nav-brand">Austin Newby</a>
+      <a href="index.html" class="nav-brand"><img src="img/portrait-me.png">Austin Newby</a>
       <ul class="nav-links">
-        <li><a href="index.html" style="color: var(--nav-highlight-color);">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html" style="color: var(--nav-highlight-color);">About</a></li>
         <li><a href="resume.html">Resume</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contacts.html">Contact</a></li>
@@ -23,17 +36,89 @@
     </div>
   </nav>
   <main class="content">
-    
-    <section class="about-bg-section" style="height: 100%;">
-        <section class="resume-section">
-        <div class="section1">
-          <h1>Austin Newby</h>
-          <p>Student | Engineer | Musician</p>
-          <a href="about.html">About Me</a>
-          <img src="self1.jpg" alt="Austin Newby">
+    <section class="about-bg-section">
+      <div class="about-bg-content">
+        <div class="intro">
+          <div class="intro-text">
+            <h1>Hello, I'm Austin Newby</h1>
+            <p>I'm second-year EE major @ Georgia Tech specializing in <span id="glow">Signal Processing</span> and <span id="glow">Electric Energy Systems.</p></span>
+            <p>I consider myself a life-long learner motivated by a desire to understand, inspire, and assist.</p>
+            <p>The universe is vast, complex, and endlessly intriguing, and I am eager to explore and innovate wherever I can.</p>
+          </div>
         </div>
-      </section>
-  </section>
+        <h1 class="text-fade" style="color: azure;">Skills & Passions<hr></h1>
+        <section class="skills-section">
+          <div class="skills-content">
+            <div class="skills-grid">
+
+              <div class="skill-card">
+                <h3>Programming  <i class="fa-solid fa-code"></i></h3>
+                <p>Accustomed to Java, Python, C#, and C++ with 4 years of beginner-to-intermediate programming experience. These skills were developed both independently at Georgia Tech and a specialized CS academy.</p>
+              </div>
+
+              <div class="skill-card">
+                <h3>Electronics  <i class="fa-solid fa-bolt"></i></h3>
+                <p>Familiar with basic bread-boarding, microcontroller implementation, and circuit design. This is the foremost skill I seek to develop through internships and GT courses, with an emphasis on collaborative projects.</p>
+              </div>
+
+              <div class="skill-card">
+                <h3>Web Development  <i class="fa-solid fa-circle-nodes"></i></h3>
+                <p>Independently picked up HTML5 and CSS3 for personal and professional use. Developing new skills in JavaScript & UI design. I aim to use these skills to cultivate clear communication, and serve as a medium between other domains.</p>
+              </div>
+
+              <div class="skill-card">
+                <h3>Game Development  <i class="fa-solid fa-gamepad"></i></h3>
+                <p>Proficient in Godot and Unity as well as managing source control via Git. I believe that video games empower a specific and unrivaled form of interactive media that serves diverse roles, from immersive story-telling to cooperative problem-solving.</p>
+              </div>
+
+              <div class="skill-card">
+                <h3>Tabletop Roleplaying  <i class="fa-solid fa-dice-d20"></i></h3>
+                <p>"TTRPGs" have become a positive facet of my life. Collaborative and unbounded, these games encourage creative problem solving and foster lasting social connections. They also develop experience in managing complex schedules.</p>
+              </div>
+
+              <div class="skill-card">
+                <h3>Music Production <i class="fa-solid fa-music"></i></h3>
+                <p>Confident in utilizing DAWs such as FL Studio to implement virtual synthesizers, filters, and effects in original compositions. This represents a crucial creative outlet that harmonizes with my professional aspirations. </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+    <section class="about-bg-section">
+      <div class="about-bg-content">
+        <h1 class="text-fade" style="color: azure;">Favorite Books<hr></h1>
+          <section class="books-section">
+            <div class="books-row">
+              <div class="book-card">
+                <img src="book1.jpg" alt="Book One">
+              </div>
+              <div class="book-card">
+                <img src="book2.jpg" alt="Book Two">
+              </div>
+              <div class="book-card">
+                <img src="book3.jpg" alt="Book Three">
+              </div>
+            </div>
+          </section>
+      </div>
+    </section>
+    <section class="about-bg-section">
+      <div class="about-bg-goals">
+        <h2>Goals</h2>
+        <ul>
+          <li>Gain Experience in Signal Processing</li>
+          <p>Signals have fascinated me long before I ever knew what they were. As I further develop my audio design skills, I aim to deepen my understanding of how signals behave and how they can be manipulated. Be it in audio/visual and other domains, I want to be able to apply these skills in real-world applications, so pursuing internships and research opportunities in this field is a priority for me.</p>
+          <li>Gain Experience in Energy Systems</li>
+          <p>As my second thread choice in my EE bachelor's degree, Energy Systems serves as my auxiliary professional focus. As I take more courses in this area, I want to gain practical experience in the field through internships and student organization involvement, with an emphasis on sustainable and renewable energy.</p>
+          <li>Develop New Viewpoints</li>
+          <p>As I continue to grow and learn, I aim to broaden my perspective and approach problems from many different angles. I want to get to know people with diverse backgrounds and experiences, challenge my own assumptions, and advance my interpersonal skills.</p>
+          <li>Make a Positive Impact</li>
+          <p>What I want most is to make people's lives better, be it through technological innovation or creative inspiration. I believe that by loving what you do, you can pass that feeling on to those around you. To this end, I am interested in opportunities to contribute to helping others or improving society.</p>
+        </ul>
+      </div>
+    </section>
   </main>
   <footer class="footer">
     <div class="footer-content">
